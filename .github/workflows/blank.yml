@@ -19,6 +19,9 @@ jobs:
       - name: Install LaTeX
         run: sudo apt-get install -y texlive-xetex
 
+      - name: List files for debugging
+        run: ls -R
+
       - name: Convert Markdown to PDF
         run: |
           mkdir -p pdfs
