@@ -20,13 +20,14 @@ jobs:
         run: sudo apt-get install -y texlive-xetex
 
       - name: List files for debugging
-        run: ls -R
+        run: find . -type f -name '*.md' -exec echo {} \;
 
       - name: Convert Markdown to PDF
         run: |
           mkdir -p pdfs
-          for file in $(find . -name '*.md'); do
-            output="pdfs/$(basename "${file%.md}.pdf")"
+          find . -type f -name '*.md' | while read file; do
+            output="pdfs/${file%.md}.pdf"
+            mkdir -p "$(dirname "$output")"
             pandoc "$file" -o "$output" --pdf-engine=xelatex
           done
 
